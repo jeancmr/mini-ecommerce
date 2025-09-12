@@ -5,7 +5,7 @@ import { NavLink } from 'react-router';
 
 export const Categories = () => {
   const dispatch = useAppDispatch();
-  const categories = useAppSelector((state) => state.ecommerce.categories);
+  const categories: string[] = useAppSelector((state) => state.ecommerce.categories);
 
   useEffect(() => {
     dispatch(startCategories());
