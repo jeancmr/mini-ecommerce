@@ -40,6 +40,6 @@ To run this app sucesfully, it is necessary to have a firebase instance. You can
 3. Enable the required services.
 4. Copy and paste your firebase config into the project.
 
-You’ll need to create a .env file in the root of the project with the variables that .env.template shows.
+You’ll need to create a .env file in the root of the project with the variables that [.env.template](https://github.com/jeancmr/mini-ecommerce/blob/main/.env.template) shows.
 
 Once you have followed all the steps, feel free to run the project locally and start coding.
