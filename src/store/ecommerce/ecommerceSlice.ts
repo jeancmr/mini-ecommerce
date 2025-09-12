@@ -3,10 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 export const ecommerceSlice = createSlice({
   name: 'ecommerce',
   initialState: {
-    isSaving: false,
+    isLoading: false,
     messageSaved: '',
     carrusel: [],
     categories: [],
+    products: [],
     active: null,
   },
 
@@ -17,8 +18,14 @@ export const ecommerceSlice = createSlice({
     setCategories: (state, action) => {
       state.categories = action.payload;
     },
+    setProducts: (state, action) => {
+      state.products = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setCarrusel, setCategories } = ecommerceSlice.actions;
+export const { setCarrusel, setCategories, setProducts, setLoading } = ecommerceSlice.actions;

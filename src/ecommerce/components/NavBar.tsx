@@ -1,11 +1,13 @@
+import { NavLink } from 'react-router';
+
 export const NavBar = () => {
   return (
     <header className="w-full bg-amber-100">
       <nav className="max-w-7xl mx-auto  px-6 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3 cursor-pointer px-4">
+        <NavLink to={'/'} className="flex items-center gap-3 cursor-pointer px-4">
           <img src="/icon-shopping-navbar.png" alt="Shopping Logo" className="w-10 h-10" />
           <h1 className="text-xl font-bold text-gray-800">Online store</h1>
-        </div>
+        </NavLink>
 
         <div className="flex items-center w-1/3">
           <div className="relative w-full">
