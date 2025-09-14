@@ -1,10 +1,14 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { AuthLayout } from '../layout/AuthLayout';
+import { useAppDispatch } from '../../store/hooks';
+import { startCreatingUserWithEmailPassword } from '../../store/auth';
 
 interface IFormInput {
   email: string;
   name: string;
   password: string;
+  displayName: string;
+  photoURL?: string;
 }
 
 export const RegisterPage = () => {
@@ -14,8 +18,11 @@ export const RegisterPage = () => {
     formState: { errors },
   } = useForm<IFormInput>();
 
+  const dispatch = useAppDispatch();
+
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
+    dispatch(startCreatingUserWithEmailPassword(data));
   };
 
   return (
@@ -26,12 +33,14 @@ export const RegisterPage = () => {
           <input
             type="text"
             className="w-full border rounded px-3 py-2"
-            {...register('name', {
+            {...register('displayName', {
               required: 'Name is required',
               minLength: { value: 2, message: 'Minimum length is 2' },
             })}
           />
-          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+          {errors.displayName && (
+            <p className="text-red-500 text-sm mt-1">{errors.displayName.message}</p>
+          )}
         </div>
         <div>
           <label className="block text-sm font-medium mb-1">Email</label>
@@ -53,9 +62,12 @@ export const RegisterPage = () => {
           <input
             className="w-full border rounded px-3 py-2"
             {...register('password', {
-              pattern: /^[A-Za-z]+$/i,
+              pattern: {
+                value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+                message:
+                  'Password must be at least 6 characters long and include both letters and numbers',
+              },
               required: 'Password is required',
-              minLength: { value: 4, message: 'Minimum length is 4' },
             })}
           />
           {errors.password && (

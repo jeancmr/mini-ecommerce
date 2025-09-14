@@ -1,0 +1,54 @@
+import { loginWithEmailPassword, registerUserWithEmailPassword } from '../../firebase/providers';
+import type { AppDispatch } from '../store';
+import { checkingCredentials, login, logout } from './authSlice';
+
+interface RegisterData {
+  email: string;
+  password: string;
+  displayName: string;
+  photoURL?: string;
+}
+
+interface LoginData {
+  email: string;
+  password: string;
+}
+
+export const startCreatingUserWithEmailPassword = ({
+  email,
+  password,
+  displayName,
+}: RegisterData) => {
+  return async (dispatch: AppDispatch) => {
+    dispatch(checkingCredentials());
+
+    const { ok, uid, photoURL, errorMessage } = await registerUserWithEmailPassword({
+      email,
+      password,
+      displayName,
+    });
+
+    if (!ok) return dispatch(logout({ errorMessage }));
+
+    dispatch(
+      login({
+        uid,
+        displayName,
+        email,
+        photoURL,
+      })
+    );
+  };
+};
+
+export const startLoginWithEmailPassword = ({ email, password }: LoginData) => {
+  return async (dispatch: AppDispatch) => {
+    dispatch(checkingCredentials());
+
+    const resp = await loginWithEmailPassword({ email, password });
+
+    if (!resp.ok) return dispatch(logout({ errorMessage: resp.errorMessage }));
+
+    dispatch(login(resp));
+  };
+};

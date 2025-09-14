@@ -1,5 +1,7 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { AuthLayout } from '../layout/AuthLayout';
+import { useAppDispatch } from '../../store/hooks';
+import { startLoginWithEmailPassword } from '../../store/auth';
 
 interface IFormInput {
   email: string;
@@ -13,8 +15,11 @@ export const LoginPage = () => {
     formState: { errors },
   } = useForm<IFormInput>();
 
+  const dispatch = useAppDispatch();
+
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
+    dispatch(startLoginWithEmailPassword(data));
   };
 
   return (
@@ -40,7 +45,6 @@ export const LoginPage = () => {
           <input
             className="w-full border rounded px-3 py-2"
             {...register('password', {
-              pattern: /^[A-Za-z]+$/i,
               required: 'Password is required',
               minLength: { value: 4, message: 'Minimum length is 4' },
             })}
