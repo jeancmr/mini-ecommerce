@@ -1,7 +1,8 @@
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { AuthLayout } from '../layout/AuthLayout';
-import { useAppDispatch } from '../../store/hooks';
-import { startLoginWithEmailPassword } from '../../store/auth';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { startGoogleSignIn, startLoginWithEmailPassword } from '../../store/auth';
+import { useMemo } from 'react';
 
 interface IFormInput {
   email: string;
@@ -16,10 +17,20 @@ export const LoginPage = () => {
   } = useForm<IFormInput>();
 
   const dispatch = useAppDispatch();
+  const { status, errorMessage } = useAppSelector((state) => state.auth);
+
+  const isAuthenticating = useMemo(() => status === 'checking', [status]);
+
+  console.log('ISAUTH ', isAuthenticating);
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     console.log(data);
     dispatch(startLoginWithEmailPassword(data));
+  };
+
+  const onGoogleSignIn = () => {
+    console.log('onGoogleSignIn');
+    dispatch(startGoogleSignIn());
   };
 
   return (
@@ -57,10 +68,18 @@ export const LoginPage = () => {
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded cursor-pointer"
             type="submit"
+            disabled={isAuthenticating}
           >
             Login
           </button>
-          <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded cursor-pointer">
+          <button
+            className={`${
+              isAuthenticating ? 'bg-red-500' : 'bg-red-300'
+            } hover:bg-red-600 text-white px-4 py-2 rounded cursor-pointer`}
+            onClick={onGoogleSignIn}
+            disabled={isAuthenticating}
+            type="button"
+          >
             Google
           </button>
         </div>
