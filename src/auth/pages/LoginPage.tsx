@@ -18,6 +18,7 @@ export const LoginPage = () => {
 
   const dispatch = useAppDispatch();
   const { status, errorMessage } = useAppSelector((state) => state.auth);
+  console.log(errorMessage);
 
   const isAuthenticating = useMemo(() => status === 'checking', [status]);
 
@@ -74,7 +75,7 @@ export const LoginPage = () => {
           </button>
           <button
             className={`${
-              isAuthenticating ? 'bg-red-500' : 'bg-red-300'
+              isAuthenticating ? 'bg-red-300' : 'bg-red-500'
             } hover:bg-red-600 text-white px-4 py-2 rounded cursor-pointer`}
             onClick={onGoogleSignIn}
             disabled={isAuthenticating}
@@ -83,6 +84,15 @@ export const LoginPage = () => {
             Google
           </button>
         </div>
+        {errorMessage && (
+          <div
+            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            role="alert"
+          >
+            <strong className="font-bold">Error:</strong>
+            <span className="block sm:inline"> {errorMessage}</span>
+          </div>
+        )}
         <p>
           Don't have an account? <a href="/auth/register">Register</a>
         </p>

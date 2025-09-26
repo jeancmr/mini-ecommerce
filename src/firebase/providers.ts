@@ -56,7 +56,7 @@ export const loginWithEmailPassword = async ({ email, password }: loginData) => 
       photoURL,
       displayName,
     };
-  } catch (error) {
+  } catch (error: any) {
     return { ok: false, errorMessage: error.message };
   }
 };
@@ -80,4 +80,8 @@ export const signInWithGoogle = async () => {
       errorMessage: error.message || 'An error occurred during Google sign-in.',
     };
   }
+};
+
+export const logoutFirebase = async () => {
+  return await FirebaseAuth.signOut();
 };

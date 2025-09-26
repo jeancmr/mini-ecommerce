@@ -12,7 +12,7 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section className="bg-gray-100 mt-16">
+    <section className="bg-gray-300 mt-16">
       <div>
         <ImageCarousel images={carrusel} />
       </div>

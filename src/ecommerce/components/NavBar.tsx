@@ -1,6 +1,13 @@
 import { NavLink } from 'react-router';
+import { startLogout } from '../../store/auth';
+import { useAppDispatch } from '../../store/hooks';
 
 export const NavBar = () => {
+  const dispatch = useAppDispatch();
+
+  const onLogout = () => {
+    dispatch(startLogout());
+  };
   return (
     <header className="w-full bg-amber-100">
       <nav className="max-w-7xl mx-auto  px-6 py-3 flex items-center justify-between">
@@ -22,6 +29,9 @@ export const NavBar = () => {
         <div className="flex text-gray-700 font-medium gap-12">
           <button className="hover:text-blue-600 cursor-pointer">My Account</button>
           <button className="hover:text-blue-600 cursor-pointer">My Cart</button>
+          <button className="hover:text-blue-600 cursor-pointer" onClick={() => onLogout()}>
+            Log Out
+          </button>
         </div>
       </nav>
     </header>
