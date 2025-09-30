@@ -2,6 +2,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import { FirebaseDB } from '../../firebase/config';
 import { setCarrusel, setCategories, setProducts, setLoading } from './ecommerceSlice';
 import type { AppDispatch, RootState } from '../store';
+import type { Product } from '../../types/product';
 
 export const startLoadingCarrusel = () => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
@@ -30,7 +31,15 @@ export const startProductsByCategory = (category: string) => {
       dispatch(setLoading(true));
       const res = await fetch(`https://dummyjson.com/products/category/${category}`);
       const data = await res.json();
-      dispatch(setProducts(data.products));
+      console.log('data', data);
+      const products = data.products.map((product: Product) => ({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        image: product.thumbnail,
+      }));
+
+      dispatch(setProducts(products));
     } catch (error) {
       console.error('Error fetching categories:', error);
     } finally {
