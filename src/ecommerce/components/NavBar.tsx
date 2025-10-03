@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router';
 import { startLogout } from '../../store/auth';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 export const NavBar = () => {
   const dispatch = useAppDispatch();
+  const { totalItems } = useAppSelector((state) => state.cart);
 
   const onLogout = () => {
     dispatch(startLogout());
@@ -28,7 +29,14 @@ export const NavBar = () => {
 
         <div className="flex text-gray-700 font-medium gap-12">
           <button className="hover:text-blue-600 cursor-pointer">My Account</button>
-          <button className="hover:text-blue-600 cursor-pointer">My Cart</button>
+          <div className="relative">
+            <button className="hover:text-blue-600 cursor-pointer">My Cart</button>
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                {totalItems}
+              </span>
+            )}
+          </div>
           <button className="hover:text-blue-600 cursor-pointer" onClick={() => onLogout()}>
             Log Out
           </button>

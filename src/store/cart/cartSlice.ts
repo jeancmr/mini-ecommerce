@@ -10,10 +10,14 @@ interface CartItem {
 
 interface CartState {
   items: CartItem[];
+  totalItems: number;
+  totalPrice: number;
 }
 
 const initialState: CartState = {
   items: [],
+  totalItems: 0,
+  totalPrice: 0,
 };
 
 export const cartSlice = createSlice({
@@ -27,10 +31,14 @@ export const cartSlice = createSlice({
         existingItem.quantity += action.payload.quantity;
       } else {
         state.items.push(action.payload);
+        state.totalItems += action.payload.quantity;
       }
+      state.totalPrice += action.payload.price * action.payload.quantity;
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
+      state.totalItems = state.items.reduce((sum, item) => sum + item.quantity, 0);
+      state.totalPrice = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
     },
     updateQuantity: (state, action: PayloadAction<{ id: string; quantity: number }>) => {
       const item = state.items.find((i) => i.id === action.payload.id);
