@@ -6,6 +6,7 @@ import {
 } from '../../firebase/providers';
 import type { AppDispatch } from '../store';
 import { checkingCredentials, login, logout } from './authSlice';
+import { clearCart } from '../cart';
 
 interface RegisterData {
   email: string;
@@ -73,5 +74,6 @@ export const startLogout = () => {
   return async (dispatch: AppDispatch) => {
     await logoutFirebase();
     dispatch(logout());
+    dispatch(clearCart());
   };
 };

@@ -1,4 +1,4 @@
-import { addToCart } from '../../store/cart';
+import { startNewProduct } from '../../store/cart';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import type { Product } from '../../types/product';
 
@@ -15,8 +15,7 @@ export const Products = () => {
   const dispatch = useAppDispatch();
 
   const addProductToCart = (product: CartItem) => {
-    console.log('PRODUCT adding TO CART:', product);
-    dispatch(addToCart({ ...product, quantity: 1 }));
+    dispatch(startNewProduct({ ...product, quantity: 1 }));
   };
 
   return (
