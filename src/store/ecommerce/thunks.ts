@@ -1,6 +1,12 @@
 import { collection, getDocs } from 'firebase/firestore';
 import { FirebaseDB } from '../../firebase/config';
-import { setCarrusel, setCategories, setProducts, setLoading } from './ecommerceSlice';
+import {
+  setCarrusel,
+  setCategories,
+  setProducts,
+  setLoading,
+  setFeaturedProducts,
+} from './ecommerceSlice';
 import type { AppDispatch, RootState } from '../store';
 import type { Product } from '../../types/product';
 
@@ -25,13 +31,32 @@ export const startCategories = () => {
   };
 };
 
+export const startFeaturedProducts = () => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    try {
+      const res = await fetch(
+        'https://dummyjson.com/products?limit=6&skip=30&select=title,price,thumbnail'
+      );
+      const data = await res.json();
+      const featuredProducts = data.products.map((product: Product) => ({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        image: product.thumbnail,
+      }));
+      dispatch(setFeaturedProducts(featuredProducts));
+    } catch (error) {
+      console.error('Error fetching featured products:', error);
+    }
+  };
+};
+
 export const startProductsByCategory = (category: string) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     try {
       dispatch(setLoading(true));
       const res = await fetch(`https://dummyjson.com/products/category/${category}`);
       const data = await res.json();
-      console.log('data', data);
       const products = data.products.map((product: Product) => ({
         id: product.id,
         title: product.title,

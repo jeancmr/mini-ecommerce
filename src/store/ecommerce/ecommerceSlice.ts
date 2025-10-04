@@ -8,6 +8,7 @@ export const ecommerceSlice = createSlice({
     carrusel: [],
     categories: [],
     products: [],
+    featuredProducts: [],
     active: null,
   },
 
@@ -21,6 +22,9 @@ export const ecommerceSlice = createSlice({
     setProducts: (state, action) => {
       state.products = action.payload;
     },
+    setFeaturedProducts: (state, action) => {
+      state.featuredProducts = action.payload;
+    },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
@@ -28,4 +32,5 @@ export const ecommerceSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setCarrusel, setCategories, setProducts, setLoading } = ecommerceSlice.actions;
+export const { setCarrusel, setCategories, setProducts, setFeaturedProducts, setLoading } =
+  ecommerceSlice.actions;

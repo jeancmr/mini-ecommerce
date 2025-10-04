@@ -12,10 +12,8 @@ export const Hero = () => {
   }, []);
 
   return (
-    <section className="bg-gray-300 mt-16">
-      <div>
-        <ImageCarousel images={carrusel} />
-      </div>
+    <section>
+      <ImageCarousel images={carrusel} />
     </section>
   );
 };

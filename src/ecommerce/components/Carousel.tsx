@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import '../styles/slider.css';
 
 interface ImageItem {
   id: string;
@@ -24,7 +25,7 @@ export const ImageCarousel: React.FC<Props> = ({ images }) => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-3xl mx-auto">
       <Slider {...settings}>
         {images.map((img) => (
           <div key={img.id}>

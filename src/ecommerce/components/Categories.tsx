@@ -11,8 +11,8 @@ export const Categories = () => {
     dispatch(startCategories());
   }, []);
   return (
-    <section className="bg-amber-50">
-      <div className="mt-16 p-4 text-center">
+    <section>
+      <div className="px-4 text-center">
         <h2 className="text-2xl font-bold mb-4">Explore categories</h2>
         <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
           {categories.map((category) => (
