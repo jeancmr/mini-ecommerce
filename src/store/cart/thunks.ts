@@ -1,6 +1,6 @@
 import { collection, doc, getDocs, setDoc } from 'firebase/firestore';
 import { FirebaseDB } from '../../firebase/config';
-import { addToCart, savingProduct, setCartItems } from './cartSlice';
+import { addToCart, clearCart, savingProduct, setCartItems } from './cartSlice';
 import type { AppDispatch, RootState } from '../store';
 import type { Product } from '../../types/product';
 

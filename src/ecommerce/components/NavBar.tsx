@@ -30,10 +30,17 @@ export const NavBar = () => {
 
       <div className="flex text-gray-700 font-medium gap-12">
         <div className="relative">
-          <button className="hover:text-blue-600 cursor-pointer flex items-center gap-1">
+          {/* <button className="hover:text-blue-600 cursor-pointer flex items-center gap-1">
             <Icon path={mdiCartOutline} size={1} />
             My Cart
-          </button>
+          </button> */}
+          <NavLink
+            to="/cart"
+            className="hover:text-blue-600 cursor-pointer flex items-center gap-1"
+          >
+            <Icon path={mdiCartOutline} size={1} />
+            My Cart
+          </NavLink>
           {totalItems > 0 && (
             <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
               {totalItems}
