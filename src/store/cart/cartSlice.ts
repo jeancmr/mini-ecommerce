@@ -60,6 +60,9 @@ export const cartSlice = createSlice({
       if (item) {
         item.quantity = action.payload.quantity;
       }
+      state.totalItems = state.items.reduce((sum, item) => sum + item.quantity, 0);
+      state.totalPrice = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      state.isSaving = false;
     },
     clearCart: (state) => {
       state.items = [];

@@ -1,6 +1,13 @@
-import { collection, deleteDoc, doc, getDocs, setDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 import { FirebaseDB } from '../../firebase/config';
-import { addToCart, clearCart, removeFromCart, savingProduct, setCartItems } from './cartSlice';
+import {
+  addToCart,
+  clearCart,
+  removeFromCart,
+  savingProduct,
+  setCartItems,
+  updateQuantity,
+} from './cartSlice';
 import type { AppDispatch, RootState } from '../store';
 import type { Product } from '../../types/product';
 
@@ -24,6 +31,7 @@ export const startLoadingCart = () => {
 
     if (!uid) throw new Error('User UID is required to load cart');
 
+    dispatch(savingProduct());
     const cart = await getDocs(collection(FirebaseDB, `cart_items/${uid}/items`));
     const cartItems = cart.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
@@ -59,5 +67,20 @@ export const startClearCart = () => {
     await Promise.all(deletePromises);
 
     dispatch(clearCart());
+  };
+};
+
+export const startUpdateQuantity = (id: string, newQuantity: number) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    const { uid } = getState().auth;
+    if (!uid) throw new Error('User not authenticated');
+
+    dispatch(savingProduct());
+
+    const docRef = doc(FirebaseDB, `cart_items/${uid}/items/${id}`);
+
+    await updateDoc(docRef, { quantity: newQuantity });
+
+    dispatch(updateQuantity({ id, quantity: newQuantity }));
   };
 };
