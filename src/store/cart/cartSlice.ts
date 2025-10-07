@@ -53,6 +53,7 @@ export const cartSlice = createSlice({
       state.items = state.items.filter((item) => item.id !== action.payload);
       state.totalItems = state.items.reduce((sum, item) => sum + item.quantity, 0);
       state.totalPrice = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      state.isSaving = false;
     },
     updateQuantity: (state, action: PayloadAction<{ id: string; quantity: number }>) => {
       const item = state.items.find((i) => i.id === action.payload.id);

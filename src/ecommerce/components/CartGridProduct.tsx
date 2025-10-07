@@ -1,20 +1,24 @@
 import Icon from '@mdi/react';
 import { mdiArrowLeft, mdiTrashCanOutline } from '@mdi/js';
-import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { startClearCart, startDeleteProduct } from '../../store/cart';
+import { useNavigate } from 'react-router';
 
 export const CartGridProduct = () => {
-  const { items } = useAppSelector((state) => state.cart);
+  const dispatch = useAppDispatch();
+  const { items, isSaving } = useAppSelector((state) => state.cart);
+  const navigate = useNavigate();
 
   const handleQuantity = (id: string, type: 'increase' | 'decrease') => {
     console.log(id, type);
   };
 
   const removeItem = (id: string) => {
-    console.log(id);
+    dispatch(startDeleteProduct(id));
   };
 
   const clearCart = () => {
-    console.log('clear cart');
+    dispatch(startClearCart());
   };
 
   return (
@@ -29,6 +33,13 @@ export const CartGridProduct = () => {
           </tr>
         </thead>
         <tbody>
+          {items.length === 0 && !isSaving && (
+            <tr>
+              <td colSpan={4} className="text-center py-10 text-gray-500">
+                Your cart is empty
+              </td>
+            </tr>
+          )}
           {items.map((item) => (
             <tr key={item.id} className="border-b last:border-none hover:bg-gray-50 transition">
               <td className="flex items-center gap-4 py-4">
@@ -54,14 +65,14 @@ export const CartGridProduct = () => {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => handleQuantity(item.id, 'decrease')}
-                    className="bg-blue-100 text-blue-600 w-7 h-7 rounded-full font-bold"
+                    className="bg-blue-100 text-blue-600 w-7 h-7 rounded-full font-bold cursor-pointer"
                   >
                     −
                   </button>
                   <span>{item.quantity}</span>
                   <button
                     onClick={() => handleQuantity(item.id, 'increase')}
-                    className="bg-blue-100 text-blue-600 w-7 h-7 rounded-full font-bold"
+                    className="bg-blue-100 text-blue-600 w-7 h-7 rounded-full font-bold cursor-pointer"
                   >
                     +
                   </button>
@@ -75,12 +86,21 @@ export const CartGridProduct = () => {
       </table>
 
       <div className="flex justify-between items-center mt-6 text-sm text-gray-600">
-        <button className="flex items-center gap-2 text-blue-600 hover:underline">
-          <Icon path={mdiArrowLeft} size={1} />
+        <button
+          className="flex items-center gap-2 text-blue-600 hover:underline cursor-pointer"
+          onClick={() => navigate(-1)}
+        >
+          <Icon path={mdiArrowLeft} size={1} /> Continue shopping
         </button>
-        <button onClick={clearCart} className="text-gray-500 hover:text-red-500 transition">
-          Clear Cart
-        </button>
+
+        {!isSaving && items.length > 0 && (
+          <button
+            onClick={clearCart}
+            className="text-gray-500 hover:text-red-500 transition cursor-pointer"
+          >
+            Clear Cart
+          </button>
+        )}
       </div>
     </div>
   );
