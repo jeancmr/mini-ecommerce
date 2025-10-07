@@ -13,7 +13,7 @@ export const useCheckAuth = () => {
   useEffect(() => {
     onAuthStateChanged(FirebaseAuth, (user) => {
       if (!user) {
-        dispatch(logout());
+        dispatch(logout({ errorMessage: '' }));
         return;
       }
 

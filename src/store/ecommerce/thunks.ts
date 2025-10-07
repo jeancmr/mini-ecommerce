@@ -7,11 +7,11 @@ import {
   setLoading,
   setFeaturedProducts,
 } from './ecommerceSlice';
-import type { AppDispatch, RootState } from '../store';
+import type { AppDispatch } from '../store';
 import type { Product } from '../../types/product';
 
 export const startLoadingCarrusel = () => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
+  return async (dispatch: AppDispatch) => {
     const carruselArray = await getDocs(collection(FirebaseDB, `carrusel_imagenes`));
     const carruselArrayData = carruselArray.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 
@@ -20,7 +20,7 @@ export const startLoadingCarrusel = () => {
 };
 
 export const startCategories = () => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
+  return async (dispatch: AppDispatch) => {
     try {
       const res = await fetch('https://dummyjson.com/products/category-list');
       const data = await res.json();
@@ -32,7 +32,7 @@ export const startCategories = () => {
 };
 
 export const startFeaturedProducts = () => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
+  return async (dispatch: AppDispatch) => {
     try {
       const res = await fetch(
         'https://dummyjson.com/products?limit=6&skip=30&select=title,price,thumbnail'
@@ -52,7 +52,7 @@ export const startFeaturedProducts = () => {
 };
 
 export const startProductsByCategory = (category: string) => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
+  return async (dispatch: AppDispatch) => {
     try {
       dispatch(setLoading(true));
       const res = await fetch(`https://dummyjson.com/products/category/${category}`);

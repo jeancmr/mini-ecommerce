@@ -73,7 +73,7 @@ export const startGoogleSignIn = () => {
 export const startLogout = () => {
   return async (dispatch: AppDispatch) => {
     await logoutFirebase();
-    dispatch(logout());
+    dispatch(logout({ errorMessage: '' }));
     dispatch(clearCart());
   };
 };

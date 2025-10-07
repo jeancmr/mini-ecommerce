@@ -28,9 +28,11 @@ export const registerUserWithEmailPassword = async ({
   try {
     const resp = await createUserWithEmailAndPassword(FirebaseAuth, email, password);
 
-    await updateProfile(FirebaseAuth.currentUser, {
-      displayName,
-    });
+    if (FirebaseAuth.currentUser) {
+      await updateProfile(FirebaseAuth.currentUser, {
+        displayName,
+      });
+    }
 
     return {
       ok: true,
@@ -40,7 +42,8 @@ export const registerUserWithEmailPassword = async ({
       photoURL: resp.user.photoURL,
     };
   } catch (error) {
-    return { ok: false, errorMessage: error.message };
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    return { ok: false, errorMessage };
   }
 };
 
@@ -75,10 +78,9 @@ export const signInWithGoogle = async () => {
       uid,
     };
   } catch (error) {
-    return {
-      ok: false,
-      errorMessage: error.message || 'An error occurred during Google sign-in.',
-    };
+    const errorMessage =
+      error instanceof Error ? error.message : 'An error occurred during Google sign-in.';
+    return { ok: false, errorMessage };
   }
 };
 
