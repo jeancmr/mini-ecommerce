@@ -3,6 +3,7 @@ import { mdiArrowLeft, mdiTrashCanOutline } from '@mdi/js';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { startClearCart, startDeleteProduct, startUpdateQuantity } from '../../store/cart';
 import { useNavigate } from 'react-router';
+import { toast, ToastContainer } from 'react-toastify';
 
 export const CartGridProduct = () => {
   const dispatch = useAppDispatch();
@@ -12,12 +13,12 @@ export const CartGridProduct = () => {
   const handleQuantity = (id: string, newQuantity: number) => {
     if (newQuantity < 1) return;
 
-    console.log(id, newQuantity);
     dispatch(startUpdateQuantity(id, newQuantity));
   };
 
   const removeItem = (id: string) => {
     dispatch(startDeleteProduct(id));
+    toast.success('Producto eliminado del carrito', { position: 'bottom-right', autoClose: 2000 });
   };
 
   const clearCart = () => {
@@ -79,6 +80,7 @@ export const CartGridProduct = () => {
                   >
                     −
                   </button>
+                  <ToastContainer />
                   <span>{item.quantity}</span>
                   <button
                     onClick={() => handleQuantity(item.id, item.quantity + 1)}

@@ -1,3 +1,5 @@
+import { ToastContainer, toast } from 'react-toastify';
+
 import { startNewProduct } from '../../store/cart';
 import { useAppDispatch } from '../../store/hooks';
 import type { Product } from '../../types/product';
@@ -7,6 +9,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
 
   const addProductToCart = (product: Product) => {
     dispatch(startNewProduct({ ...product, quantity: 1 }));
+    toast.success('Producto agregado al carrito', { position: 'bottom-right', autoClose: 2000 });
   };
 
   return (
@@ -28,6 +31,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
       >
         Agregar
       </button>
+      <ToastContainer />
     </div>
   );
 };
