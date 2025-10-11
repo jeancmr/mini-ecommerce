@@ -26,7 +26,7 @@ export const CartGridProduct = () => {
   };
 
   return (
-    <div className="max-w-5xl bg-white rounded-2xl shadow-sm p-6">
+    <article className="w-full bg-white rounded-2xl shadow-sm p-6">
       <table className="w-full text-left">
         <thead>
           <tr className="border-b text-gray-500 text-sm">
@@ -114,6 +114,6 @@ export const CartGridProduct = () => {
           </button>
         )}
       </div>
-    </div>
+    </article>
   );
 };
