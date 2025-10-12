@@ -10,7 +10,7 @@ export const NavBar = () => {
   const dispatch = useAppDispatch();
   const { totalItems } = useAppSelector((state) => state.cart);
 
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
