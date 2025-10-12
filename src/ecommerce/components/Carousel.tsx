@@ -25,7 +25,7 @@ export const ImageCarousel: React.FC<Props> = ({ images }) => {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
+    <div className="max-w-2xl mx-6 md:mx-auto lg:mx-auto">
       <Slider {...settings}>
         {images.map((img) => (
           <div key={img.id}>

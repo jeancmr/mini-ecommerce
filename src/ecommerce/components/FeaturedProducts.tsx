@@ -16,7 +16,7 @@ export const FeaturedProducts = () => {
   return (
     <section>
       <h2 className="text-2xl font-bold text-center">Featured Products</h2>
-      <div className="flex flex-wrap gap-4 p-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
         {featuredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
