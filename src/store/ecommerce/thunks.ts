@@ -6,6 +6,7 @@ import {
   setProducts,
   setLoading,
   setFeaturedProducts,
+  setProduct,
 } from './ecommerceSlice';
 import type { AppDispatch } from '../store';
 import type { Product } from '../../types/product';
@@ -67,6 +68,36 @@ export const startProductsByCategory = (category: string) => {
       dispatch(setProducts(products));
     } catch (error) {
       console.error('Error fetching categories:', error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+};
+
+export const startProduct = (id: string) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setLoading(true));
+      const res = await fetch(`https://dummyjson.com/products/${id}`);
+      const data = await res.json();
+      const product = {
+        availabilityStatus: data.availabilityStatus,
+        category: data.category,
+        description: data.description,
+        dimensions: data.dimensions,
+        discountPercentage: data.discountPercentage,
+        id: data.id,
+        images: data.images,
+        price: data.price,
+        rating: data.rating,
+        reviews: data.reviews,
+        stock: data.stock,
+        title: data.title,
+        warrantyInformation: data.warrantyInformation,
+      };
+      dispatch(setProduct(product));
+    } catch (error) {
+      console.error('Error fetching product:', error);
     } finally {
       dispatch(setLoading(false));
     }
