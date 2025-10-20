@@ -1,4 +1,5 @@
 export interface Product {
+  id_firestore: string;
   id: string;
   title: string;
   description: string;

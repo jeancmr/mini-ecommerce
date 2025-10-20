@@ -18,7 +18,7 @@ export const startNewProduct = (product: Product) => {
     dispatch(savingProduct());
 
     const newDoc = doc(collection(FirebaseDB, `cart_items/${uid}/items`));
-    const newProduct = { ...product, id: newDoc.id, quantity: 1 };
+    const newProduct = { ...product, id_firestore: newDoc.id, quantity: 1 };
     await setDoc(newDoc, newProduct);
 
     dispatch(addToCart(newProduct));

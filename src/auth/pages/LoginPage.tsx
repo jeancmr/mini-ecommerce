@@ -25,12 +25,10 @@ export const LoginPage = () => {
   console.log('ISAUTH ', isAuthenticating);
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
     dispatch(startLoginWithEmailPassword(data));
   };
 
   const onGoogleSignIn = () => {
-    console.log('onGoogleSignIn');
     dispatch(startGoogleSignIn());
   };
 

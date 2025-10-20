@@ -21,7 +21,6 @@ export const RegisterPage = () => {
   const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
     dispatch(startCreatingUserWithEmailPassword(data));
   };
 

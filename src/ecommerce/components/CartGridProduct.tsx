@@ -62,7 +62,7 @@ export const CartGridProduct = () => {
                 <div>
                   <p className="font-medium mb-1">{item.title}</p>
                   <button
-                    onClick={() => removeItem(item.id)}
+                    onClick={() => removeItem(item.id_firestore)}
                     className="text-red-500 text-sm flex items-center gap-1 cursor-pointer"
                   >
                     <Icon path={mdiTrashCanOutline} size={1} /> Remove
@@ -75,7 +75,7 @@ export const CartGridProduct = () => {
               <td>
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => handleQuantity(item.id, item.quantity - 1)}
+                    onClick={() => handleQuantity(item.id_firestore, item.quantity - 1)}
                     className="bg-blue-100 text-blue-600 w-7 h-7 rounded-full font-bold cursor-pointer"
                   >
                     −
@@ -83,7 +83,7 @@ export const CartGridProduct = () => {
                   <ToastContainer />
                   <span>{item.quantity}</span>
                   <button
-                    onClick={() => handleQuantity(item.id, item.quantity + 1)}
+                    onClick={() => handleQuantity(item.id_firestore, item.quantity + 1)}
                     className="bg-blue-100 text-blue-600 w-7 h-7 rounded-full font-bold cursor-pointer"
                   >
                     +

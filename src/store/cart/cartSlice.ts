@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface CartItem {
   id: string;
+  id_firestore: string;
   title: string;
   price: number;
   quantity: number;
@@ -50,13 +51,13 @@ export const cartSlice = createSlice({
       state.isSaving = false;
     },
     removeFromCart: (state, action: PayloadAction<string>) => {
-      state.items = state.items.filter((item) => item.id !== action.payload);
+      state.items = state.items.filter((item) => item.id_firestore !== action.payload);
       state.totalItems = state.items.reduce((sum, item) => sum + item.quantity, 0);
       state.totalPrice = state.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
       state.isSaving = false;
     },
     updateQuantity: (state, action: PayloadAction<{ id: string; quantity: number }>) => {
-      const item = state.items.find((i) => i.id === action.payload.id);
+      const item = state.items.find((i) => i.id_firestore === action.payload.id);
       if (item) {
         item.quantity = action.payload.quantity;
       }
