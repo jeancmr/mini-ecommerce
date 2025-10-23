@@ -1,3 +1,5 @@
+import type { Review } from './productReview';
+
 export interface Product {
   availabilityStatus: string;
   category: string;
@@ -11,5 +13,6 @@ export interface Product {
   quantity: number;
   rating: number;
   thumbnail: string;
+  reviews: Review[];
   title: string;
 }

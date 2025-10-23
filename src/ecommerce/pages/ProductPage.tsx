@@ -3,6 +3,7 @@ import { NavBar } from '../components';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { startProduct } from '../../store/ecommerce';
 import { useEffect, useState } from 'react';
+import { ProductReviews } from '../components/ProductReviews';
 
 export const ProductPage = () => {
   const { id } = useParams();
@@ -10,7 +11,6 @@ export const ProductPage = () => {
   const [selectedImage, setSelectedImage] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(1);
 
-  console.log(product);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export const ProductPage = () => {
         <div>Loading...</div>
       ) : (
         <main>
-          <section className="grid grid-cols-2 gap-10 max-w-4xl mx-auto">
+          <section className="grid grid-cols-2 gap-10 max-w-4xl mx-auto mt-10">
             <article>
               <img
                 className="h-96"
@@ -54,7 +54,7 @@ export const ProductPage = () => {
                 <p>{product?.description}</p>
 
                 <div className="flex justify-between">
-                  <p>Cantidad</p>
+                  <p>Quantity</p>
                   <div className="flex items-center gap-2.5">
                     <button
                       onClick={() => setQuantity((prev) => Math.max(prev - 1, 1))}
@@ -80,6 +80,8 @@ export const ProductPage = () => {
               </main>
             </article>
           </section>
+
+          {product && <ProductReviews reviews={product?.reviews} />}
         </main>
       )}
     </>
