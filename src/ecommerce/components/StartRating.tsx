@@ -72,7 +72,7 @@ interface StarProps {
   size: number;
 }
 
-const Star = ({ onRate, full, onHoverIn, onHoverOut, color, size }: StarProps) => {
+const Star = ({ full, color, size }: StarProps) => {
   const starStyle = {
     width: `${size}px`,
     height: `${size}px`,
