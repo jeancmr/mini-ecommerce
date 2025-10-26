@@ -1,6 +1,6 @@
-import { useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../../../store/hooks';
+import type { Product } from '../../../types/product';
 import { ProductCard } from './ProductCard';
-import type { Product } from '../../types/product';
 
 export const Products = () => {
   const { products }: { products: Product[] } = useAppSelector((state) => state.ecommerce);

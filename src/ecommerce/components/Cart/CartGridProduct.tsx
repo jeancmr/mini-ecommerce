@@ -1,9 +1,9 @@
 import Icon from '@mdi/react';
 import { mdiArrowLeft, mdiTrashCanOutline } from '@mdi/js';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { startClearCart, startDeleteProduct, startUpdateQuantity } from '../../store/cart';
 import { useNavigate } from 'react-router';
 import { toast, ToastContainer } from 'react-toastify';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { startClearCart, startDeleteProduct, startUpdateQuantity } from '../../../store/cart';
 
 export const CartGridProduct = () => {
   const dispatch = useAppDispatch();

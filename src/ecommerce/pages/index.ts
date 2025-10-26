@@ -2,3 +2,7 @@ export * from './EcommercePage';
 export * from './CategoryProductsPage';
 export * from './CartPage';
 export * from './ProductPage';
+export * from './EcommercePage';
+export * from './CategoryProductsPage';
+export * from './CartPage';
+export * from './ProductPage';

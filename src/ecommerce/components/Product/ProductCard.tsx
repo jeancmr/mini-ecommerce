@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
-import { startNewProduct } from '../../store/cart';
-import { useAppDispatch } from '../../store/hooks';
-import type { Product } from '../../types/product';
+import { useAppDispatch } from '../../../store/hooks';
+import type { Product } from '../../../types/product';
+import { startNewProduct } from '../../../store/cart';
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch();

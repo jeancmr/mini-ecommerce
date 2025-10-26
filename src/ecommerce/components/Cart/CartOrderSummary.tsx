@@ -1,7 +1,7 @@
 import Icon from '@mdi/react';
 import { mdiLockOutline } from '@mdi/js';
-import { useAppSelector } from '../../store/hooks';
 import { toast } from 'react-toastify';
+import { useAppSelector } from '../../../store/hooks';
 
 export const CartOrderSummary = () => {
   const { totalPrice } = useAppSelector((state) => state.cart);

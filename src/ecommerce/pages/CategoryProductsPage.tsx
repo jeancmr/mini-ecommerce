@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { NavBar } from '../components';
 import { startProductsByCategory } from '../../store/ecommerce';
-import { Products } from '../components/Products';
+import { NavBar } from '../components';
+import { Products } from '../components/Product';
+import { CheckingAuth } from '../../ui/components/CheckingAuth';
 
 export const CategoryProductsPage = () => {
   const dispatch = useAppDispatch();
@@ -18,8 +19,8 @@ export const CategoryProductsPage = () => {
   return (
     <>
       <NavBar />
-      <h1>Category: {category}</h1>
-      {isLoading ? <div>Loading...</div> : <Products />}
+      <h2 className="text-2xl font-semibold ml-8 mb-10 mt-6">{category}</h2>
+      {isLoading ? <CheckingAuth /> : <Products />}
     </>
   );
 };

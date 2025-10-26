@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { startFeaturedProducts } from '../../store/ecommerce';
-import type { Product } from '../../types/product';
 import { ProductCard } from './ProductCard';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { startFeaturedProducts } from '../../../store/ecommerce';
+import type { Product } from '../../../types/product';
 
 export const FeaturedProducts = () => {
   const dispatch = useAppDispatch();

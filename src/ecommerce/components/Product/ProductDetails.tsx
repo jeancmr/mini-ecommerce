@@ -1,0 +1,77 @@
+import { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import { useAppDispatch } from '../../../store/hooks';
+import { startNewProduct } from '../../../store/cart';
+import type { Product } from '../../../types/product';
+
+export const ProductDetails = ({ product }: { product: Product }) => {
+  const [selectedImage, setSelectedImage] = useState<string>('');
+  const [quantity, setQuantity] = useState<number>(1);
+
+  const dispatch = useAppDispatch();
+
+  const addProductToCart = (product: Product) => {
+    dispatch(startNewProduct({ ...product, quantity }));
+    toast.success('Producto agregado al carrito', { position: 'bottom-right', autoClose: 2000 });
+  };
+
+  return (
+    <section className="grid sm:grid-cols-2 gap-10 max-w-4xl mx-auto mt-10">
+      <article>
+        <img
+          className="h-96"
+          src={selectedImage ? selectedImage : product?.images[0]}
+          alt={product?.title}
+        />
+        <div className="w-100 flex">
+          {product?.images.map((imgUrl) => (
+            <img
+              className="h-16 cursor-pointer"
+              key={imgUrl}
+              src={imgUrl}
+              alt={product?.title}
+              onClick={() => setSelectedImage(imgUrl)}
+            />
+          ))}
+        </div>
+      </article>
+
+      <article className="p-8 bg-blue-50">
+        <header className="flex flex-col gap-6">
+          <h2 className="text-2xl font-bold">{product?.title}</h2>
+          <p>{product?.availabilityStatus}</p>
+          <p className="font-bold text-lg">$ {product?.price}</p>
+        </header>
+        <main className="flex flex-col gap-6 mt-6">
+          <p>{product?.description}</p>
+
+          <div className="flex justify-between">
+            <p>Quantity</p>
+            <div className="flex items-center gap-2.5">
+              <button
+                onClick={() => setQuantity((prev) => Math.max(prev - 1, 1))}
+                className="bg-blue-100 text-blue-600 w-7 h-7 rounded-full font-bold cursor-pointer"
+              >
+                −
+              </button>
+              <span>{quantity}</span>
+              <button
+                onClick={() => setQuantity((prev) => prev + 1)}
+                className="bg-blue-100 text-blue-600 w-7 h-7 rounded-full font-bold cursor-pointer"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <button
+            onClick={() => addProductToCart(product!)}
+            className="w-full rounded-lg bg-gray-800 text-white py-2 mt-2 hover:bg-gray-700 transition-colors cursor-pointer"
+          >
+            Add to cart
+          </button>
+        </main>
+      </article>
+      <ToastContainer />
+    </section>
+  );
+};

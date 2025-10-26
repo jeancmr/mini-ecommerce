@@ -1,6 +1,6 @@
-import type { ProductReviewsProps } from '../../types/productReview';
+import type { ProductReviewsProps } from '../../../types/productReview';
+import { getTimeAgo } from '../../utils/getTimeAgo';
 import { StarRating } from './StartRating';
-import { getTimeAgo } from '../utils/getTimeAgo';
 
 export const ProductReviews = ({ reviews }: ProductReviewsProps) => {
   return (

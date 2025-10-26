@@ -1,7 +1,6 @@
 import { LayoutApp } from '../../ui/layout/LayoutApp';
 import { NavBar } from '../components';
-import { CartGridProduct } from '../components/CartGridProduct';
-import { CartOrderSummary } from '../components/CartOrderSummary';
+import { CartGridProduct, CartOrderSummary } from '../components/Cart';
 
 export const CartPage = () => {
   return (

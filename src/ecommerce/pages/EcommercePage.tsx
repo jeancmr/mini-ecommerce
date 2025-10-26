@@ -1,5 +1,6 @@
 import { LayoutApp } from '../../ui/layout/LayoutApp';
-import { NavBar, Hero, Categories, FeaturedProducts } from '../components';
+import { Categories, Hero, NavBar } from '../components';
+import { FeaturedProducts } from '../components/Product';
 
 export const EcommercePage = () => {
   return (
