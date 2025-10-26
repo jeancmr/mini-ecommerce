@@ -4,6 +4,9 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { startProduct } from '../../store/ecommerce';
 import { useEffect, useState } from 'react';
 import { ProductReviews } from '../components/ProductReviews';
+import type { Product } from '../../types/product';
+import { toast, ToastContainer } from 'react-toastify';
+import { startNewProduct } from '../../store/cart';
 
 export const ProductPage = () => {
   const { id } = useParams();
@@ -12,6 +15,11 @@ export const ProductPage = () => {
   const [quantity, setQuantity] = useState<number>(1);
 
   const dispatch = useAppDispatch();
+
+  const addProductToCart = (product: Product) => {
+    dispatch(startNewProduct({ ...product, quantity }));
+    toast.success('Producto agregado al carrito', { position: 'bottom-right', autoClose: 2000 });
+  };
 
   useEffect(() => {
     dispatch(startProduct(id!));
@@ -72,7 +80,7 @@ export const ProductPage = () => {
                   </div>
                 </div>
                 <button
-                  onClick={() => console.log('add to cart')}
+                  onClick={() => addProductToCart(product!)}
                   className="w-full rounded-lg bg-gray-800 text-white py-2 mt-2 hover:bg-gray-700 transition-colors cursor-pointer"
                 >
                   Add to cart
@@ -80,6 +88,7 @@ export const ProductPage = () => {
               </main>
             </article>
           </section>
+          <ToastContainer />
 
           {product && <ProductReviews reviews={product?.reviews} />}
         </main>

@@ -92,6 +92,7 @@ export const startProduct = (id: string) => {
         rating: data.rating,
         reviews: data.reviews,
         stock: data.stock,
+        image: data.thumbnail,
         title: data.title,
         warrantyInformation: data.warrantyInformation,
       };

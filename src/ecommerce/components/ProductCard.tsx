@@ -14,18 +14,16 @@ export const ProductCard = ({ product }: { product: Product }) => {
   };
 
   return (
-    <div
-      key={product.id}
-      className="relative p-3 w-48 rounded-md shadow-md bg-white group cursor-pointer"
-      onClick={() => navigate(`/product/${product.id}`)}
-    >
-      <img
-        src={product.image}
-        alt={product.title}
-        style={{ width: '100%', height: '150px', objectFit: 'cover' }}
-      />
-      <h3>{product.title}</h3>
-      <p>${product.price}</p>
+    <div key={product.id} className="relative p-3 w-48 rounded-md shadow-md bg-white group">
+      <div className="cursor-pointer" onClick={() => navigate(`/product/${product.id}`)}>
+        <img
+          src={product.image}
+          alt={product.title}
+          style={{ width: '100%', height: '150px', objectFit: 'cover' }}
+        />
+        <h3>{product.title}</h3>
+        <p>${product.price}</p>
+      </div>
 
       <button
         onClick={() => addProductToCart(product)}
